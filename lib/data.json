@@ -1,0 +1,48 @@
+{
+  "coachQuestions": [
+    {
+      "id": 1,
+      "question": "What is the Preamble of the Constitution?",
+      "answer": "The Preamble is the introductory statement to the Constitution. It outlines the philosophy and objectives of the document, declaring India to be a Sovereign, Socialist, Secular, and Democratic Republic. It aims to secure justice, liberty, equality for all citizens, and promote fraternity to maintain the unity and integrity of the nation."
+    },
+    {
+      "id": 2,
+      "question": "What are the Fundamental Rights?",
+      "answer": "Fundamental Rights are a set of basic human rights guaranteed to all citizens of India, enshrined in Part III of the Constitution. There are six main rights: Right to Equality, Right to Freedom, Right against Exploitation, Right to Freedom of Religion, Cultural and Educational Rights, and the Right to Constitutional Remedies."
+    },
+    {
+      "id": 3,
+      "question": "What is the difference between a Fundamental Right and a Directive Principle?",
+      "answer": "Fundamental Rights are legally enforceable in a court of law (justiciable), meaning a citizen can go to court if their rights are violated. Directive Principles of State Policy, on the other hand, are guidelines for the government and are not legally enforceable (non-justiciable). They represent the goals and objectives that the state should strive to achieve."
+    }
+  ],
+  "learningModules": [
+    {
+      "slug": "preamble",
+      "title": "The Preamble",
+      "summary": "The Preamble is the soul of the Constitution. It is an introductory statement that outlines the guiding purpose, principles, and philosophy. It declares India as a Sovereign, Socialist, Secular, and Democratic Republic, committed to securing justice, liberty, and equality for its people."
+    },
+    {
+      "slug": "fundamental-rights",
+      "title": "Fundamental Rights",
+      "summary": "These are the basic human rights guaranteed to every citizen, found in Part III of the Constitution. They are enforceable by courts and include the Right to Equality, Right to Freedom, Right against Exploitation, Right to Freedom of Religion, Cultural and Educational Rights, and the Right to Constitutional Remedies. They are the bedrock of Indian democracy."
+    },
+    {
+      "slug": "parliament",
+      "title": "The Parliament",
+      "summary": "The Parliament of India is the supreme legislative body. It consists of the President and two houses: the Rajya Sabha (Council of States) and the Lok Sabha (House of the People). Its primary function is to make laws, oversee the government's administration, and approve the budget."
+    }
+  ],
+  "quizQuestions": [
+    { "question": "How many Fundamental Rights are there?", "options": ["Five", "Six", "Seven"], "correctAnswer": "Six" },
+    { "question": "Which article is the 'Heart and Soul' of the Constitution?", "options": ["Article 14", "Article 21", "Article 32"], "correctAnswer": "Article 32" },
+    { "question": "Directive Principles were borrowed from which country?", "options": ["USA", "UK", "Ireland"], "correctAnswer": "Ireland" },
+    { "question": "Who is the supreme commander of the Armed Forces?", "options": ["Prime Minister", "President", "Chief of Defence Staff"], "correctAnswer": "President" },
+    { "question": "The Preamble was amended by which amendment?", "options": ["42nd", "44th", "24th"], "correctAnswer": "42nd" },
+    { "question": "Minimum age to be President of India?", "options": ["30 years", "35 years", "40 years"], "correctAnswer": "35 years" },
+    { "question": "The Constitution was adopted on which date?", "options": ["26th Jan 1950", "26th Nov 1949", "15th Aug 1947"], "correctAnswer": "26th Nov 1949" },
+    { "question": "Which schedule deals with the allocation of seats in the Rajya Sabha?", "options": ["Third", "Fourth", "Fifth"], "correctAnswer": "Fourth" },
+    { "question": "The Right to Property was removed from Fundamental Rights by which amendment?", "options": ["42nd", "44th", "52nd"], "correctAnswer": "44th" },
+    { "question": "Who presides over a joint sitting of Parliament?", "options": ["President", "Vice-President", "Speaker of Lok Sabha"], "correctAnswer": "Speaker of Lok Sabha" }
+  ]
+}
