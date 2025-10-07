@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
 import data from '@../../../lib/data.json';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -8,7 +8,10 @@ import { Progress } from "@/components/ui/progress";
 
 const { quizQuestions } = data;
 type Question = typeof quizQuestions[0];
-const shuffleArray = (array: any[]) => array.sort(() => Math.random() - 0.5);
+
+
+const shuffleArray = (array: Question[]) => array.sort(() => Math.random() - 0.5);
+
 const TIME_LIMIT = 15;
 
 export default function QuizPage() {
@@ -20,22 +23,7 @@ export default function QuizPage() {
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  useEffect(() => { startNewQuiz(); }, []);
-
-  useEffect(() => {
-    if (selectedAnswer || showResult) {
-      if (timerRef.current) clearInterval(timerRef.current);
-      return;
-    }
-    timerRef.current = setInterval(() => { setTimeLeft((prev) => prev - 1); }, 1000);
-    return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [currentQuestionIndex, selectedAnswer, showResult]);
-
-  useEffect(() => {
-    if (timeLeft === 0 && !selectedAnswer) { handleAnswerClick(""); }
-  }, [timeLeft, selectedAnswer]);
-
-  const startNewQuiz = () => {
+  const startNewQuiz = useCallback(() => {
     if (timerRef.current) clearInterval(timerRef.current);
     const randomQuestions = shuffleArray([...quizQuestions]).slice(0, 5);
     setSessionQuestions(randomQuestions);
@@ -44,18 +32,42 @@ export default function QuizPage() {
     setSelectedAnswer(null);
     setShowResult(false);
     setTimeLeft(TIME_LIMIT);
-  };
+  }, []);
+
+  useEffect(() => {
+    startNewQuiz();
+  }, [startNewQuiz]);
+
+  const handleAnswerClick = useCallback((option: string) => {
+    if (selectedAnswer) return;
+    setSelectedAnswer(option);
+    if (sessionQuestions[currentQuestionIndex] && option === sessionQuestions[currentQuestionIndex].correctAnswer) {
+      setScore((prevScore) => prevScore + 1);
+    }
+  }, [selectedAnswer, currentQuestionIndex, sessionQuestions]);
+
+  useEffect(() => {
+    if (selectedAnswer || showResult) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+    timerRef.current = setInterval(() => {
+      setTimeLeft((prev) => prev - 1);
+    }, 1000);
+    return () => { if (timerRef.current) clearInterval(timerRef.current); };
+  }, [currentQuestionIndex, selectedAnswer, showResult]);
+  
+  
+  useEffect(() => {
+    if (timeLeft === 0 && !selectedAnswer) {
+      handleAnswerClick("");
+    }
+  }, [timeLeft, selectedAnswer, handleAnswerClick]);
 
   if (sessionQuestions.length === 0) return <div>Loading Quiz...</div>;
 
   const currentQuestion = sessionQuestions[currentQuestionIndex];
   const progressValue = ((currentQuestionIndex + 1) / sessionQuestions.length) * 100;
-
-  const handleAnswerClick = (option: string) => {
-    if (selectedAnswer) return;
-    setSelectedAnswer(option);
-    if (option === currentQuestion.correctAnswer) { setScore(score + 1); }
-  };
 
   const handleNextQuestion = () => {
     setSelectedAnswer(null);
@@ -98,11 +110,11 @@ export default function QuizPage() {
               className={`p-6 text-md justify-start text-left h-auto transition-colors duration-200 ${
                 selectedAnswer
                   ? option === currentQuestion.correctAnswer
-                    ? 'bg-green-600 border-green-500 text-white hover:bg-green-600' // Correct
+                    ? 'bg-green-600 border-green-500 text-white hover:bg-green-600'
                     : option === selectedAnswer
-                    ? 'bg-red-600 border-red-500 text-white hover:bg-red-600' // Incorrect
-                    : 'bg-slate-800 border-slate-700 text-slate-400' // Unselected after answer
-                  : 'bg-slate-700 border-slate-600 text-slate-100 hover:bg-slate-600' // Default
+                    ? 'bg-red-600 border-red-500 text-white hover:bg-red-600'
+                    : 'bg-slate-800 border-slate-700 text-slate-400'
+                  : 'bg-slate-700 border-slate-600 text-slate-100 hover:bg-slate-600'
               }`}
               onClick={() => handleAnswerClick(option)}
               disabled={!!selectedAnswer}
